@@ -1,0 +1,23 @@
+{
+    "TipoTerreno": 1,
+    "Clima": 1,
+    "Estaciones": 4,
+    "DisponibilidadAlimentos": 3,
+    "RiesgsAmbientale": 0.8,
+    "Topografia": 2,
+    "Vegetacion": 0.8,
+    "Humedad": 0.6,
+    "Contaminacion": 0.2,
+    "CalidadAgua": 0.9,
+    "NivelPrecipitacion": 800, 
+    "NivelAltitud": 1500, 
+    "CalidadSuelo": 0.7, 
+    "RangoTemperaturas": 25,
+    "RazonDiaNoche": 0.6, 
+    "NivelRadiacionSolar": 300, 
+    "NivelRuidoAmbiental": 40, 
+    "NivelPolucionLuminica": 0.2, 
+    "RazonDepredadoresPresas": 0.5, 
+    "CalidadHabitat": 0.8
+  }
+  

@@ -1,0 +1,6 @@
+FrecuenciaCardiaca: Latidos/Min.
+NivelHidratacion: 0 - 1.
+NivelEnergia: 0 - 1.
+TemperaturaCorporal: °C.
+Respiracion: Respiraciones/Min.
+SaturacionOxigeno: 0 - 1.

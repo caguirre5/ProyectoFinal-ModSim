@@ -1,0 +1,22 @@
+{
+    "NombreEspecie": "León",
+    "Edad": 6,
+    "Genero": "Macho",
+    "Peso": 190,
+    "Tamaño": 180,
+    "Velocidad": 80,
+    "CapacidadReproduccion": 0.8,
+    "TasaAlimentacion": 5,
+    "Dieta": 1, 
+    "ExpectativaVida": 12,
+    "ComportamientoSocial": 3, 
+    "Depredadores": [],
+    "Presas": [4, 5, 6], 
+    "NivelAgresividad": 0.9,
+    "CapacidadMovimiento": 0.3,
+    "ResistenciaEnfermedades": 0.85,
+    "Fertilidad": 4,
+    "Longevidad": 15,
+    "ComportamientoCazaAlimentacion": "Caza en grupo y se alimenta de grandes mamíferos herbívoros."
+}
+  

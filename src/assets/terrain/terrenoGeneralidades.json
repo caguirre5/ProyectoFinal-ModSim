@@ -1,0 +1,28 @@
+{
+    "TipoTerreno": {
+      "1": "Bosque",
+      "2": "Desierto",
+      "3": "Pradera",
+      "4": "Montaña",
+      "5": "Selva"
+    },
+    "Clima": {
+      "1": "Tropical",
+      "2": "Templado",
+      "3": "Árido",
+      "4": "Frío",
+      "5": "Subártico"
+    },
+    "DisponibilidadAlimentos": {
+      "1": "Abundante",
+      "2": "Moderada",
+      "3": "Escasa"
+    },
+    "Topografia": {
+      "1": "Plano",
+      "2": "Montañoso",
+      "3": "Colinas",
+      "4": "Llanuras"
+    }
+}
+  

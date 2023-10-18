@@ -1,0 +1,21 @@
+
+"TipoTerreno": Clase
+"Clima": Clase
+"Estaciones": Numero
+"DisponibilidadAlimentos": Clase
+"RiesgosAmbientales": 0 - 1
+"Topografia": Clase
+"Vegetacion": 0 - 1
+"Humedad": 0 - 1
+"Contaminacion": 0 - 1
+"CalidadAgua": 0 - 1,
+"NivelPrecipitacion": Milimetros, 
+"NivelAltitud": Mts, 
+"CalidadSuelo": 0 - 1, 
+"RangoTemperaturas": °C,
+"NivelRadiacionSolar": Watts/Mts2, 
+"NivelRuidoAmbiental": dB, 
+"NivelPolucionLuminica": 0 - 1, 
+"RazonDepredadoresPresas": 0 - 1, 
+"CalidadHabitat": 0 - 1
+

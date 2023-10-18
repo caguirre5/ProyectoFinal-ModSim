@@ -1,0 +1,19 @@
+NombreEspecie: Texto.
+Edad: Número.
+Genero: Número.
+Peso: Kg.
+Tamaño: Cm.
+Velocidad: Mts/Seg.
+CapacidadReproduccion: 0 - 1.
+TasaAlimentacion: Kg/Dia.
+Dieta: Número.
+ExpectativaVida: Años.
+ComportamientoSocial: Número.
+Depredadores: Lista.
+Presas: Lista.
+NivelAgresividad: 0 - 1.
+CapacidadMovimiento: 0 - 1.
+ResistenciaEnfermedades: 0 - 1.
+Fertilidad: No. Promedio de Crías.
+Longevidad: Años.
+ComportamientoCazaAlimentacion: Texto.

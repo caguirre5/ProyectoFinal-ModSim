@@ -1,0 +1,13 @@
+{
+    "NombreEspecie": "León",
+    "Edad": 6,
+    "Genero": "Macho",
+    "Peso": 190,
+    "FrecuenciaCardiaca": 80,
+    "NivelHidratacion": 60,
+    "NivelEnergia": 70,
+    "TemperaturaCorporal": 38.5,
+    "Respiracion": 20,
+    "SaturacionOxigeno": 95
+  }
+  

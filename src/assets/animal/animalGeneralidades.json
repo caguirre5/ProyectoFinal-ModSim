@@ -1,0 +1,17 @@
+{
+    "Dietas":{
+        "1": "Carnívora",
+        "2": "Herbívora",
+        "3": "Omnívora"
+    },
+    "Social": {
+        "1": "Solitario",
+        "2": "Grupos Pequeños",
+        "3": "Manada",
+        "4": "Colonia"
+    },
+    "Genero": {
+        "1": "Macho",
+        "2": "Hembra"
+    }
+}
