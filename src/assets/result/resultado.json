@@ -1,7 +1,5 @@
 {
     "NombreEspecie": "León",
-    "Edad": 6,
-    "Genero": "Macho",
     "Peso": 190,
     "FrecuenciaCardiaca": 80,
     "NivelHidratacion": 60,
