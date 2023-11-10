@@ -1,5 +1,5 @@
 class Animal:
-    def __init__(self, nombre, edad, genero, peso, tamano, velocidad, capacidadReproduccion, tasaAlimentacion, dieta, expectativaVida, comportamientoSocial, depredadores, presas, nivelAgresividad, resistenciaEnfermedades, fertilidad):
+    def __init__(self, nombre, edad, genero, peso, tamano, velocidad, capacidadReproduccion, tasaAlimentacion, dieta, expectativaVida, comportamientoSocial, depredadores, presas, nivelAgresividad, resistenciaEnfermedades, fertilidad, frecuenciaCardiaca):
         self.nombre = nombre
         self.edad = edad
         self.genero = genero
@@ -16,3 +16,13 @@ class Animal:
         self.nivelAgresividad = nivelAgresividad
         self.resistenciaEnfermedades = resistenciaEnfermedades
         self.fertilidad = fertilidad
+
+        # --------------------- Signos vitales ------------------------
+        self.frecuenciaCardiaca = frecuenciaCardiaca
+        self.nivelHidratacion = 0.6
+        self.nivelEnergia = 0.7
+        self.temperaturaCorporal = 38.5
+        self.respiracion = 20
+        self.saturacionOxigeno = 95
+
+        self.vivo = True

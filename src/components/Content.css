@@ -1,0 +1,50 @@
+.content-container { 
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-container aside {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+}
+  
+.map-container {
+  flex:2; 
+}
+
+.vitals-container {
+  flex:1;
+  margin: 10px;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #fff; 
+}
+
+.scatter-chart-container {
+  height: 100%;
+  width: 100%;
+}
+
+.image-container {
+  flex:1;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  background-color: #fff; 
+}
+
+.chart {
+  border-radius: 20px;
+}
+
+
+  
+  

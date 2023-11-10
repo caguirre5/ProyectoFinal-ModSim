@@ -1,0 +1,75 @@
+.form-container {
+  max-width: 350px;
+  height: 100%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.close-button {
+  height: 50px;
+  display: flex;
+  align-items: start;
+  justify-content: flex-end;
+}
+
+.close-button-icon {
+  cursor: pointer;
+}
+
+.form-container form {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+  
+.form-container label {
+  display:inline-block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+  
+.form-container .input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Agrega margen entre los grupos de campos */
+}
+  
+.form-container .input-group label {
+  flex: 1;
+  white-space: nowrap; 
+  margin-right: 10px;
+}
+  
+.form-container .input-group input {
+  width: 50px; /* El input ocupa todo el ancho disponible */
+  padding: 5px;
+}
+
+.input-name input {
+  flex:2;
+  width: 100px;
+}
+
+.left-input {
+  margin-right: 10px;
+}
+
+.form-container select {
+  flex:2;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+  
+  
+.form-container button {
+  width: 100%;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}

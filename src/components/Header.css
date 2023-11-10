@@ -1,0 +1,33 @@
+.header-container {
+    background-color:#fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.right-navbar-buttons button{
+    margin: 0 10px;
+}
+
+#play-button{
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(292deg, rgba(2,89,64,1) 0%, rgba(3,166,74,1) 100%);
+}
+
+.play-icon{
+    margin-left: 10px;
+}
+
+.params-icon {
+    font-size:20px;
+    color: rgba(3,166,74,1);
+    cursor: pointer;
+}
+
+#params-button{
+    padding: 10px;
+    border: 1px solid #cccbcb;
+}
