@@ -31,7 +31,25 @@ class Formulario extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-  }
+    // Llama a la función de envío con los valores del formulario
+    this.props.onSubmit(this.state);
+    // Restablece el formulario o realiza otras acciones necesarias
+    this.setState({
+      nombre: '',
+      expectativaVida: '',
+      capacidadReproduccion: '',
+      tasaAlimentacion: '',
+      dieta: '',
+      pesoMin: '',
+      pesoMax: '',
+      tamañoMin: '',
+      tamañoMax: '',
+      entorno: '',
+      poblacion: '',
+    });
+    // Cierra el menú después de enviar el formulario (si es necesario)
+    this.props.toggleMenu();
+  };
 
   render() {
     return (
@@ -71,14 +89,14 @@ class Formulario extends Component {
           
               <div className='input-group'>
                   <label>Peso (Rango):</label>
-                  <input className='left-input' type="number" name="pesoMin" placeholder="Mínimo" onChange={this.handleChange} />
-                  <input className='right-input' type="number" name="pesoMax" placeholder="Máximo" onChange={this.handleChange} />
+                  <input className='left-input' type="number" name="pesoMin" placeholder="Min" onChange={this.handleChange} />
+                  <input className='right-input' type="number" name="pesoMax" placeholder="Max" onChange={this.handleChange} />
               </div>
           
               <div className='input-group'>
                   <label>Tamaño (Rango):</label>
-                  <input className='left-input' type="number" name="tamañoMin" placeholder="Mínimo" onChange={this.handleChange} />
-                  <input className='right-input' type="number" name="tamañoMax" placeholder="Máximo" onChange={this.handleChange} />
+                  <input className='left-input' type="number" name="tamañoMin" placeholder="Min" onChange={this.handleChange} />
+                  <input className='right-input' type="number" name="tamañoMax" placeholder="Max" onChange={this.handleChange} />
               </div>
 
               <div className='input-group'>
@@ -91,10 +109,14 @@ class Formulario extends Component {
 
               <div className='input-group'>
                 <label>Poblacion:</label>
-                <input type="text" name="poblacion" onChange={this.handleChange} />
+                <input type="number" value={10} name="poblacion" onChange={this.handleChange} />
+              </div>
+              <div className='input-group'>
+                <label>Duración (Dias):</label>
+                <input type="number" value={10} name="epocas" onChange={this.handleChange} />
               </div>
             </div>
-            <button type="submit">Enviar</button>
+            <button type="submit">Guardar</button>
           </form>
         </div>      
     );

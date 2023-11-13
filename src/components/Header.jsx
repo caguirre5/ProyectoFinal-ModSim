@@ -12,7 +12,7 @@ function Header(props) {
             </button>
             <div className='right-navbar-buttons'>
                 {/* <button>Estadísticas</button> */}
-                <button id='play-button'>
+                <button id='play-button' onClick={props.onStartSimulation}>
                     Ejecutar
                     <FontAwesomeIcon icon={faPlay} className='play-icon'/> 
                 </button>

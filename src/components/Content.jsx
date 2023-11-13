@@ -13,6 +13,12 @@ if (typeof Highcharts === 'object') {
     HighCharts3D(Highcharts)
 }
 
+function calcularPromedio(arreglo) {
+  const suma = arreglo.reduce((total, valor) => total + valor, 0);
+  const promedio = suma / arreglo.length;
+  return promedio;
+}
+
 const data = [
   {
     id: 'data-0',
@@ -179,28 +185,57 @@ const data = [
 
 function ProgressBar({ label, progress }) {
   const barStyle = {
-    height: `${progress}%`,
+    width: `${progress}%`,
   };
 
   return (
     <div className="progress-bar">
+      <div className="label">{label}</div>
       <div className="bar">
         <div className="fill" style={barStyle}></div>
       </div>
-      <div className="label">{label}</div>
     </div>
   );
 }
 
-function Content() {
+function Content(props) {
+    const [newData, setNewData] = useState({
+      Frecuencia:90,
+      Hidratacion:0.8,
+      Energia: 0.7,
+      Saturacion:80,
+      Respiracion:20,
+      Temperatura:38
+    })
 
-    // Define el progreso para cada barra
-    const [progress1, setProgress1] = useState(30);
-    const [progress2, setProgress2] = useState(60);
-    const [progress3, setProgress3] = useState(75);
-    const [progress4, setProgress4] = useState(45);
-    const [progress5, setProgress5] = useState(90);
+    const [epoch, setEpoch] = useState(1)
 
+
+
+    // setProgress1(calcularPromedioActual(epoch, props.formData.animales, "Hidratacion"))
+    console.log(props.formData)
+    let n = props.formData.poblacion.length
+    
+    // // Efecto para actualizar la posición cada 2 segundos
+    // useEffect(() => {
+    //   let intervalId;
+  
+    //   if (props.isRunning) {
+    //     intervalId = setInterval(() => {
+    //       if (epoch < n) {
+    //         console.log('Ejecucion',epoch,n)
+    //         setEpoch((epoch + 1));
+    //       } else {
+    //         clearInterval(intervalId);
+    //         props.setIsRunning(false);
+    //       }
+    //     }, 500);
+    //   } else {
+    //     clearInterval(intervalId);
+    //   }
+  
+    //   return () => clearInterval(intervalId);
+    // }, [epoch, props.isRunning, props.formData.animales]);
     
     return (
         <div className='content-container'>
@@ -211,25 +246,26 @@ function Content() {
               </div>
               <div className='vitals-container'>
                 <div className='vitals-text-container'>
-                  <h2>Frecuencia cardiaca: 90 P/min</h2>
-                  <h2>Peso: 90 Kg</h2>
+                  <h2>Frecuencia cardiaca: {props.formData.promedios == undefined ? 0:props.formData.promedios.Frecuencia[0]} P/min</h2>
+                  <h2>Respiración: {props.formData.promedios == undefined ? 0:props.formData.promedios.Respiracion[0]} R/min</h2>
+                </div>
+                <div className='vitals-text-container'>
+                  <h2>Temperatura Corporal: {props.formData.promedios == undefined ? 0:props.formData.promedios.Temperatura[0]} °C</h2>
                 </div>
                 <div className='bars-container'>
-                  <ProgressBar label="Hidratación" progress={progress1} />
-                  <ProgressBar label="Energía" progress={progress2} />
-                  <ProgressBar label="Saturación de oxígeno" progress={progress3} />
-                  <ProgressBar label="Respiración" progress={progress4} />
-                  <ProgressBar label="Temperatura corporal" progress={progress4} />
+                  <ProgressBar label="Hidratación" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Hidratacion[0]*100} />
+                  <ProgressBar label="Energía" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Energia[0]*100} />
+                  <ProgressBar label="Saturación de oxígeno" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Saturacion[0]*100} />
                 </div>
               </div>
             </div>
             <aside>
               <div className='population-container'>
                 <LineChart
-                    xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+                    xAxis={[{ data: Array.from({ length: props.formData.poblacion.length}, (_, index) => index + 1) }]}
                     series={[
                         {
-                        data: [2, 5.5, 2, 8.5, 1.5, 5],
+                        data: props.formData.poblacion,
                         color: '#59a14f'
                         },
                     ]}

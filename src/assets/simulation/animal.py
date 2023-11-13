@@ -1,5 +1,6 @@
 class Animal:
-    def __init__(self, nombre, edad, genero, peso, tamano, velocidad, capacidadReproduccion, tasaAlimentacion, dieta, expectativaVida, comportamientoSocial, depredadores, presas, nivelAgresividad, resistenciaEnfermedades, fertilidad, frecuenciaCardiaca):
+    def __init__(self, ID, nombre, edad, genero, peso, tamano, velocidad, capacidadReproduccion, tasaAlimentacion, dieta, expectativaVida, comportamientoSocial, depredadores, presas, nivelAgresividad, resistenciaEnfermedades, fertilidad, frecuenciaCardiaca):
+        self.ID = ID,
         self.nombre = nombre
         self.edad = edad
         self.genero = genero

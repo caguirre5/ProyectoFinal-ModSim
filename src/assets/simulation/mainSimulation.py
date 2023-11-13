@@ -159,63 +159,13 @@ def simularEpoca(poblacion, entorno):
         # Realiza cálculos y actualizaciones para cada variable de estado
         specimen.frecuenciaCardiaca = calcularFrecuenciaCardiacaIdeal(
             specimen, entorno)
-        specimen.peso = calcularPeso(specimen, entorno)
-        specimen.nivelHidratacion = calcularNivelHidratacion(specimen, entorno)
-        specimen.nivelEnergia = calcularNivelEnergia(specimen, entorno)
-        specimen.temperaturaCorporal = calcularTemperaturaCorporal(
-            specimen, entorno)
-        specimen.respiracion = calcularRespiracion(specimen, entorno)
-        specimen.saturacionOxigeno = calcularSaturacionOxigeno(
-            specimen, entorno)
-
-
-# Incializar poblacion
-n_poblacion = 10
-poblacion = []
-
-
-for i in range(n_poblacion):
-    nombre = "León Africano"
-    genero = random.randint(0, 1)
-    expectativa_vida = 12
-    capacidad_reproduccion = 0.7
-    tasa_alimentacion = 8
-    dieta = 1
-    comportamiento_social = 3
-    nivel_agresividad = 0.8
-    resistencia_enfermedades = 0.85
-    fertilidad_promedio = 4
-    peso = random.randint(
-        150, 250) if genero == 0 else random.randint(128, 182)
-    tamano = random.randint(
-        170, 250) if genero == 0 else random.randint(140, 175)
-
-    poblacion.append(Animal(
-        nombre=nombre,  # Nombre
-        edad=random.randint(0, expectativa_vida),  # Edad
-        genero=genero,  # Género
-        peso=peso,  # Peso en kg
-        tamano=tamano,  # Tamaño en cm
-        velocidad=random.randint(50, 60),  # Velocidad en km/h
-        # Capacidad de reproducción (0 - 1)
-        capacidadReproduccion=capacidad_reproduccion,
-        tasaAlimentacion=tasa_alimentacion,  # Tasa de alimentación en kg/día
-        dieta=dieta,  # Dieta (por ejemplo, 1 para Carnívora)
-        expectativaVida=expectativa_vida,  # Expectativa de vida en años
-        # Comportamiento Social
-        comportamientoSocial=comportamiento_social,
-        depredadores=[],  # Depredadores
-        presas=[],  # Presas
-        nivelAgresividad=nivel_agresividad,  # Nivel de Agresividad (0 - 1)
-        # Resistencia a Enfermedades (0 - 1)
-        resistenciaEnfermedades=resistencia_enfermedades,
-        fertilidad=fertilidad_promedio,  # Fertilidad (promedio de crías)
-        frecuenciaCardiaca=random.randint(60, 90)  # frecuencia cardiaca
-    ))
-
-# Simulación de 100 épocas
-for epoca in range(1, 101):
-    if epoca == 1 or epoca == 50 or epoca == 100:
-        print(
-            f'\n\nDia {epoca}: \nFrecuencia: {poblacion[1].frecuenciaCardiaca} \nNivel hidratacion: {poblacion[1].nivelHidratacion}\nNivel Energia: {poblacion[1].nivelEnergia}\nTemperatura corporal: {poblacion[1].temperaturaCorporal}\nRespiracion: {poblacion[1].respiracion}\nSaturacion oxigeno: {poblacion[1].saturacionOxigeno}\nPeso: {poblacion[1].peso}')
-    simularEpoca(poblacion, entorno)
+        specimen.peso = round(calcularPeso(specimen, entorno), 2)
+        specimen.nivelHidratacion = round(
+            calcularNivelHidratacion(specimen, entorno), 2)
+        specimen.nivelEnergia = round(
+            calcularNivelEnergia(specimen, entorno), 2)
+        specimen.temperaturaCorporal = round(
+            calcularTemperaturaCorporal(specimen, entorno), 2)
+        specimen.respiracion = round(calcularRespiracion(specimen, entorno), 2)
+        specimen.saturacionOxigeno = round(
+            calcularSaturacionOxigeno(specimen, entorno), 2)
