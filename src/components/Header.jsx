@@ -11,7 +11,7 @@ function Header(props) {
                 <FontAwesomeIcon  icon={faSliders} className='params-icon'/>
             </button>
             <div className='right-navbar-buttons'>
-                <button>Estadísticas</button>
+                {/* <button>Estadísticas</button> */}
                 <button id='play-button'>
                     Ejecutar
                     <FontAwesomeIcon icon={faPlay} className='play-icon'/> 
