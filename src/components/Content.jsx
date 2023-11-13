@@ -204,8 +204,8 @@ function Content(props) {
     const [epoch, setEpoch] = useState(1)
 
     // setProgress1(calcularPromedioActual(epoch, props.formData.animales, "Hidratacion"))
-    console.log(props.formData)
-    let n = props.formData.poblacion.length
+    console.log(props.formData.poblacion)
+    let n = props.formData.poblacion
     
     // // Efecto para actualizar la posición cada 2 segundos
     useEffect(() => {
@@ -254,10 +254,10 @@ function Content(props) {
             <aside>
               <div className='population-container'>
                 <LineChart
-                    xAxis={[{ data: Array.from({ length: props.formData.poblacion.length}, (_, index) => index + 1) }]}
+                    xAxis={[{ data: Array.from({ length: props.formData.poblacion}, (_, index) => index + 1) }]}
                     series={[
                         {
-                        data: props.formData.poblacion,
+                        data: [10,8,5,4,2],
                         color: '#59a14f'
                         },
                     ]}

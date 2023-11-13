@@ -16,7 +16,7 @@ function App() {
     tamano: 120,
     entorno: 1,
     duracion: 10,
-    poblacion:[10,8,7,5,2],
+    poblacion:10,
     animales: null,
     isRunning:false,
   });
@@ -32,7 +32,7 @@ function App() {
     tamanoMax:120,
     entorno: 1,
     duracion: 10,
-    poblacion:[10,8,7,5,2],
+    poblacion:10,
     animales: null,
     isRunning:false,
   });
@@ -48,6 +48,8 @@ function App() {
     Object.entries(formData).forEach(([key, value]) => {
       url.searchParams.append(key, value);
     });
+
+    console.log(url)
 
     try {
       const response = await fetch(url, {
