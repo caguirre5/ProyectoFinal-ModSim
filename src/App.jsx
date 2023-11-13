@@ -17,7 +17,8 @@ function App() {
     entorno: 1,
     duracion: 10,
     poblacion:[10,8,7,5,2],
-    animales: null
+    animales: null,
+    isRunning:false,
   });
   const [newData, setNewData] = useState({
     nombre: "Leon",
@@ -31,6 +32,7 @@ function App() {
     duracion: 10,
     poblacion:[10,8,7,5,2],
     animales: null,
+    isRunning:false,
   });
   const [isRunning, setIsRunning] = useState(false);
 
@@ -72,8 +74,7 @@ function App() {
   }
 
   const handleStartSimulation = () => {
-    setNewData({...formData});
-    setIsRunning(true);
+    setNewData({...formData, isRunning:true});
   };
 
   return (

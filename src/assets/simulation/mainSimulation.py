@@ -1,7 +1,8 @@
-# Importa las clases Animal y Terreno (asumiendo que están definidas en archivos separados)
 from animal import Animal
 from terrain import Terreno
+from flask import Flask, request, jsonify
 import random
+import json
 
 # Instancia de la clase Entorno
 entorno = Terreno(
@@ -124,7 +125,7 @@ def calcularSaturacionOxigeno(animal, entorno):
     # Una fórmula podría ser:
     tasa_respiracion = calcularRespiracion(animal, entorno)
     saturacion_oxigeno = 100 - (tasa_respiracion * 0.1)
-    return saturacion_oxigeno
+    return saturacion_oxigeno/100
 
 
 def calcularFrecuenciaCardiacaIdeal(animal, entorno):
@@ -169,3 +170,136 @@ def simularEpoca(poblacion, entorno):
         specimen.respiracion = round(calcularRespiracion(specimen, entorno), 2)
         specimen.saturacionOxigeno = round(
             calcularSaturacionOxigeno(specimen, entorno), 2)
+
+
+def Execute(n_poblacion):
+    # Incializar poblacion
+    poblacion = []
+
+    result = {
+        "poblacion": [],
+        "animales": {}
+    }
+
+    for i in range(n_poblacion):
+        ID = i+1
+        nombre = "León Africano"
+        genero = random.randint(0, 1)
+        expectativa_vida = 12
+        capacidad_reproduccion = 0.7
+        tasa_alimentacion = 8
+        dieta = 1
+        comportamiento_social = 3
+        nivel_agresividad = 0.8
+        resistencia_enfermedades = 0.85
+        fertilidad_promedio = 4
+        peso = random.randint(
+            150, 250) if genero == 0 else random.randint(128, 182)
+        tamano = random.randint(
+            170, 250) if genero == 0 else random.randint(140, 175)
+
+        animal = Animal(
+            ID=ID,
+            nombre=nombre,  # Nombre
+            edad=random.randint(0, expectativa_vida),  # Edad
+            genero=genero,  # Género
+            peso=peso,  # Peso en kg
+            tamano=tamano,  # Tamaño en cm
+            velocidad=random.randint(50, 60),  # Velocidad en km/h
+            # Capacidad de reproducción (0 - 1)
+            capacidadReproduccion=capacidad_reproduccion,
+            tasaAlimentacion=tasa_alimentacion,  # Tasa de alimentación en kg/día
+            dieta=dieta,  # Dieta (por ejemplo, 1 para Carnívora)
+            expectativaVida=expectativa_vida,  # Expectativa de vida en años
+            # Comportamiento Social
+            comportamientoSocial=comportamiento_social,
+            depredadores=[],  # Depredadores
+            presas=[],  # Presas
+            nivelAgresividad=nivel_agresividad,  # Nivel de Agresividad (0 - 1)
+            # Resistencia a Enfermedades (0 - 1)
+            resistenciaEnfermedades=resistencia_enfermedades,
+            fertilidad=fertilidad_promedio,  # Fertilidad (promedio de crías)
+            frecuenciaCardiaca=random.randint(60, 90)  # frecuencia cardiaca
+        )
+        poblacion.append(animal)
+        result["animales"][ID] = {
+            "Frecuencia": {"valores": []},
+            "Hidratacion": {"valores": []},
+            "Energia": {"valores": []},
+            "Temperatura": {"valores": []},
+            "Respiracion": {"valores": []},
+            "Saturacion": {"valores": []},
+        }
+
+    result["promedios"] = {
+        "Frecuencia": [],
+        "Hidratacion": [],
+        "Energia": [],
+        "Temperatura": [],
+        "Respiracion": [],
+        "Saturacion": [],
+    }
+
+    # Simulación de 100 épocas
+    for epoca in range(1, 11):
+        promedio_f = []
+        promedio_h = []
+        promedio_e = []
+        promedio_t = []
+        promedio_r = []
+        promedio_s = []
+        for animal in result["animales"]:
+            result["animales"][animal]["Frecuencia"]["valores"].append(
+                poblacion[animal-1].frecuenciaCardiaca)
+            promedio_f.append(poblacion[animal-1].frecuenciaCardiaca)
+
+            result["animales"][animal]["Hidratacion"]["valores"].append(
+                poblacion[animal-1].nivelHidratacion)
+            promedio_h.append(poblacion[animal-1].nivelHidratacion)
+
+            result["animales"][animal]["Energia"]["valores"].append(
+                poblacion[animal-1].nivelEnergia)
+            promedio_e.append(poblacion[animal-1].nivelEnergia)
+
+            result["animales"][animal]["Temperatura"]["valores"].append(
+                poblacion[animal-1].temperaturaCorporal)
+            promedio_t.append(poblacion[animal-1].temperaturaCorporal)
+
+            result["animales"][animal]["Respiracion"]["valores"].append(
+                poblacion[animal-1].respiracion)
+            promedio_r.append(poblacion[animal-1].respiracion)
+
+            result["animales"][animal]["Saturacion"]["valores"].append(
+                poblacion[animal-1].saturacionOxigeno)
+            promedio_s.append(poblacion[animal-1].saturacionOxigeno)
+        result["promedios"]["Frecuencia"].append(
+            round(sum(promedio_f) / len(promedio_f), 0))
+        result["promedios"]["Hidratacion"].append(
+            round(sum(promedio_h) / len(promedio_h), 2))
+        result["promedios"]["Energia"].append(
+            round(sum(promedio_e) / len(promedio_e), 2))
+        result["promedios"]["Temperatura"].append(
+            round(sum(promedio_t) / len(promedio_t), 2))
+        result["promedios"]["Respiracion"].append(
+            round(sum(promedio_r) / len(promedio_r), 2))
+        result["promedios"]["Saturacion"].append(
+            round(sum(promedio_s) / len(promedio_s), 2))
+
+        result["poblacion"].append(len(result["animales"]))
+        simularEpoca(poblacion, entorno)
+
+    for animal in result["animales"]:
+        result["animales"][animal]["Frecuencia"]["promedio"] = round(sum(
+            result["animales"][animal]["Frecuencia"]["valores"]) / len(result["animales"][animal]["Frecuencia"]["valores"]), 0)
+        result["animales"][animal]["Hidratacion"]["promedio"] = round(sum(
+            result["animales"][animal]["Hidratacion"]["valores"]) / len(result["animales"][animal]["Hidratacion"]["valores"]), 2)
+        result["animales"][animal]["Energia"]["promedio"] = round(sum(
+            result["animales"][animal]["Energia"]["valores"]) / len(result["animales"][animal]["Energia"]["valores"]), 2)
+        result["animales"][animal]["Temperatura"]["promedio"] = round(sum(
+            result["animales"][animal]["Temperatura"]["valores"]) / len(result["animales"][animal]["Temperatura"]["valores"]), 2)
+        result["animales"][animal]["Respiracion"]["promedio"] = round(sum(
+            result["animales"][animal]["Respiracion"]["valores"]) / len(result["animales"][animal]["Respiracion"]["valores"]), 2)
+        result["animales"][animal]["Saturacion"]["promedio"] = round(sum(
+            result["animales"][animal]["Saturacion"]["valores"]) / len(result["animales"][animal]["Saturacion"]["valores"]), 0)
+
+    return result

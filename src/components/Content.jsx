@@ -199,43 +199,35 @@ function ProgressBar({ label, progress }) {
 }
 
 function Content(props) {
-    const [newData, setNewData] = useState({
-      Frecuencia:90,
-      Hidratacion:0.8,
-      Energia: 0.7,
-      Saturacion:80,
-      Respiracion:20,
-      Temperatura:38
-    })
+    const [isRunning, setIsRunning] = useState(false)
 
     const [epoch, setEpoch] = useState(1)
-
-
 
     // setProgress1(calcularPromedioActual(epoch, props.formData.animales, "Hidratacion"))
     console.log(props.formData)
     let n = props.formData.poblacion.length
     
     // // Efecto para actualizar la posición cada 2 segundos
-    // useEffect(() => {
-    //   let intervalId;
+    useEffect(() => {
+      let intervalId;
   
-    //   if (props.isRunning) {
-    //     intervalId = setInterval(() => {
-    //       if (epoch < n) {
-    //         console.log('Ejecucion',epoch,n)
-    //         setEpoch((epoch + 1));
-    //       } else {
-    //         clearInterval(intervalId);
-    //         props.setIsRunning(false);
-    //       }
-    //     }, 500);
-    //   } else {
-    //     clearInterval(intervalId);
-    //   }
+      if (props.formData.isRunning) {
+        intervalId = setInterval(() => {
+          if (epoch < n-1) {
+            console.log('Ejecucion',epoch,n)
+            setEpoch((epoch + 1));
+          } else {
+            clearInterval(intervalId);
+            props.setIsRunning(false);
+            props.formData.isRunning = false
+          }
+        }, 500);
+      } else {
+        clearInterval(intervalId);
+      }
   
-    //   return () => clearInterval(intervalId);
-    // }, [epoch, props.isRunning, props.formData.animales]);
+      return () => clearInterval(intervalId);
+    }, [epoch, props.isRunning, props.formData.animales]);
     
     return (
         <div className='content-container'>
@@ -246,16 +238,16 @@ function Content(props) {
               </div>
               <div className='vitals-container'>
                 <div className='vitals-text-container'>
-                  <h2>Frecuencia cardiaca: {props.formData.promedios == undefined ? 0:props.formData.promedios.Frecuencia[0]} P/min</h2>
-                  <h2>Respiración: {props.formData.promedios == undefined ? 0:props.formData.promedios.Respiracion[0]} R/min</h2>
+                  <h2>Frecuencia cardiaca: {props.formData.promedios == undefined ? 0:props.formData.promedios.Frecuencia[epoch]} P/min</h2>
+                  <h2>Respiración: {props.formData.promedios == undefined ? 0:props.formData.promedios.Respiracion[epoch]} R/min</h2>
                 </div>
                 <div className='vitals-text-container'>
-                  <h2>Temperatura Corporal: {props.formData.promedios == undefined ? 0:props.formData.promedios.Temperatura[0]} °C</h2>
+                  <h2>Temperatura Corporal: {props.formData.promedios == undefined ? 0:props.formData.promedios.Temperatura[epoch]} °C</h2>
                 </div>
                 <div className='bars-container'>
-                  <ProgressBar label="Hidratación" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Hidratacion[0]*100} />
-                  <ProgressBar label="Energía" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Energia[0]*100} />
-                  <ProgressBar label="Saturación de oxígeno" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Saturacion[0]*100} />
+                  <ProgressBar label="Hidratación" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Hidratacion[epoch]*100} />
+                  <ProgressBar label="Energía" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Energia[epoch]*100} />
+                  <ProgressBar label="Saturación de oxígeno" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Saturacion[epoch]*100} />
                 </div>
               </div>
             </div>
