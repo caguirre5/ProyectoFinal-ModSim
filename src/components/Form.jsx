@@ -1,126 +1,115 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Form.css'; 
 
-class Formulario extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nombre: '',
-      expectativaVida: '',
-      capacidadReproduccion: '',
-      tasaAlimentacion: '',
-      dieta: '',
-      comportamientoSocial: '',
-      nivelAgresividad: '',
-      resistenciaEnfermedades: '',
-      fertilidadPromedio: '',
-      pesoMin: '',
-      pesoMax: '',
-      tamañoMin: '',
-      tamañoMax: '',
-    };
-  }
+function Formulario(props) {
+  const [localFormData, setLocalFormData] = useState({
+    nombre: "Leon",
+    expectativa_vida: 12,
+    capacidad_reproduccion: 4,
+    tasa_alimentacion: 7,
+    dieta: 1,
+    pesoMin: 150,
+    pesoMax: 250,
+    tamañoMin: 175,
+    tamañoMax: 250,
+    entorno: 1,
+    duracion: 10,
+    n_poblacion:10,
+  });
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
+  const handleChange = (e) => {
+    // Si cambiamos un campo en el form, 
+    //lo actualizamos en el state loal
+    const { name, value } = e.target;
+    const parsedValue = name === 'nombre' ? value : parseInt(value, 10);
+
+    setLocalFormData({
+      ...localFormData,
+      [name]: parsedValue || '', // Si el valor no es numérico, se establece como una cadena vacía
     });
   }
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
+    console.log('LocalData',localFormData)
+    //Si hacemos submit, llamamos a la funcion
+    //onSubmit que viene del App y le pasamos la data
     e.preventDefault();
-    // Llama a la función de envío con los valores del formulario
-    this.props.onSubmit(this.state);
-    // Restablece el formulario o realiza otras acciones necesarias
-    this.setState({
-      nombre: '',
-      expectativaVida: '',
-      capacidadReproduccion: '',
-      tasaAlimentacion: '',
-      dieta: '',
-      pesoMin: '',
-      pesoMax: '',
-      tamañoMin: '',
-      tamañoMax: '',
-      entorno: '',
-      poblacion: '',
-    });
-    // Cierra el menú después de enviar el formulario (si es necesario)
-    this.props.toggleMenu();
+    props.toggleMenu()
+    props.onSubmit(localFormData);
   };
 
-  render() {
-    return (
-        <div className='form-container'>
-          <div className='close-button'>
-            <FontAwesomeIcon onClick={this.props.toggleMenu} icon={faTimes} className='close-button-icon'/>
-          </div>
-          <form onSubmit={this.handleSubmit}>
-            <div>
+  return (
+    <div className='form-container'>
+      <div className='close-button'>
+        <FontAwesomeIcon onClick={props.toggleMenu} icon={faTimes} className='close-button-icon'/>
+      </div>
+      <form onSubmit={handleSubmit}>
+      <div>
               <div className='input-group input-name'>
                   <label>Animal:</label>
-                  <input type="text" name="nombre" onChange={this.handleChange} />
+                  <input type="text" name="nombre" onChange={handleChange} />
               </div>
           
               <div className='input-group'>
                 <label>Expectativa de vida:</label>
-                <input type="number" name="expectativaVida" onChange={this.handleChange} />
+                <input type="number" name="expectativa_vida" onChange={handleChange} />
               </div>
           
               <div className='input-group'>
                 <label>Capacidad de reproducción:</label>
-                <input type="number" name="capacidadReproduccion" onChange={this.handleChange} />
+                <input type="number" name="capacidad_reproduccion" onChange={handleChange} />
               </div>
           
               <div className='input-group'>
                 <label>Tasa de alimentación:</label>
-                <input type="number" name="tasaAlimentacion" onChange={this.handleChange} />
+                <input type="number" name="tasa_alimentacion" onChange={handleChange} />
               </div>
 
               <div className='input-group'>
                 <label>Dieta:</label>
-                <select name="dieta" onChange={this.handleChange}>
-                  <option value="opcion1">Opción 1</option>
-                  <option value="opcion2">Opción 2</option>
+                <select name="dieta" onChange={handleChange}>
+                  <option value={1}>Herbívoros</option>
+                  <option value={2}>Carnívoros</option>
+                  <option value={3}>Omnívoros</option>
                 </select>
               </div>
           
               <div className='input-group'>
                   <label>Peso (Rango):</label>
-                  <input className='left-input' type="number" name="pesoMin" placeholder="Min" onChange={this.handleChange} />
-                  <input className='right-input' type="number" name="pesoMax" placeholder="Max" onChange={this.handleChange} />
+                  <input className='left-input' type="number" name="pesoMin" placeholder="Min" onChange={handleChange} />
+                  <input className='right-input' type="number" name="pesoMax" placeholder="Max" onChange={handleChange} />
               </div>
           
               <div className='input-group'>
                   <label>Tamaño (Rango):</label>
-                  <input className='left-input' type="number" name="tamañoMin" placeholder="Min" onChange={this.handleChange} />
-                  <input className='right-input' type="number" name="tamañoMax" placeholder="Max" onChange={this.handleChange} />
+                  <input className='left-input' type="number" name="tamañoMin" placeholder="Min" onChange={handleChange} />
+                  <input className='right-input' type="number" name="tamañoMax" placeholder="Max" onChange={handleChange} />
               </div>
 
               <div className='input-group'>
                 <label>Entorno:</label>
-                <select name="entorno" onChange={this.handleChange}>
-                  <option value="opcion1">Opción 1</option>
-                  <option value="opcion2">Opción 2</option>
+                <select name="entorno" onChange={handleChange}>
+                  <option value={1}>Desierto</option>
+                  <option value={2}>Selva Tropical</option>
+                  <option value={3}>Motaña</option>
                 </select>
               </div>
 
               <div className='input-group'>
                 <label>Poblacion:</label>
-                <input type="number" value={10} name="poblacion" onChange={this.handleChange} />
+                <input type="number" name="n_poblacion" onChange={handleChange} />
               </div>
               <div className='input-group'>
                 <label>Duración (Dias):</label>
-                <input type="number" value={10} name="epocas" onChange={this.handleChange} />
+                <input type="number" name="duracion" onChange={handleChange} />
               </div>
             </div>
             <button type="submit">Guardar</button>
-          </form>
-        </div>      
-    );
-  }
+      </form>
+    </div>
+  );
 }
 
 export default Formulario;

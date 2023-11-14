@@ -1,11 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ScatterChart } from '@mui/x-charts/ScatterChart';
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import HighCharts3D from 'highcharts/highcharts-3d'
-import Plot from 'react-plotly.js';
-import Map from './Map';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeartbeat, faThermometerThreeQuarters, faLungs } from '@fortawesome/free-solid-svg-icons';
 
 import './Content.css'
 
@@ -189,36 +186,61 @@ function ProgressBar({ label, progress }) {
   );
 }
 
+function IconVital({ label, icon, color = 'red' }) {
+
+  return (
+    <div className="icon-vital">
+      <div className="icon-vital-container">
+        <FontAwesomeIcon icon={icon} className='icon' style={{color:color}}/> 
+      </div>
+      <div className="icon-vital-label">{label}</div>
+    </div>
+  );
+}
+
 function Content(props) {
-    const [isRunning, setIsRunning] = useState(false)
 
-    const [epoch, setEpoch] = useState(1)
+    const [epoch, setEpoch] = useState(0)
+    const [epochControl, setEpochControl] = useState(0)
+    const [movimientos, setMovimientos] = useState([[0,0]])
 
-    // setProgress1(calcularPromedioActual(epoch, props.formData.animales, "Hidratacion"))
-    console.log("formData",props.result.promedios.Frecuencia == undefined ? 0:props.result.promedios.Frecuencia[0])
     let n = props.result.duracion
+
     
+    
+    // if (props.result.is_running ){
+    //   setMovimientos(props.result.animales.movimientos == undefined ? [[0,0]] : props.result.animales.movimientos)
+    // }
     // // Efecto para actualizar la posición cada 2 segundos
-    // useEffect(() => {
-    //   let intervalId;
+    useEffect(() => {
+      let intervalId;
   
-    //   if (props.result.isRunning) {
-    //     intervalId = setInterval(() => {
-    //       if (epoch < n-1) {
-    //         console.log('Ejecucion',epoch,n)
-    //         setEpoch((epoch + 1));
-    //       } else {
-    //         clearInterval(intervalId);
-    //         props.setIsRunning(false);
-    //         props.result.isRunning = false
-    //       }
-    //     }, 500);
-    //   } else {
-    //     clearInterval(intervalId);
-    //   }
+      if (props.result.is_running) {
+        intervalId = setInterval(() => {
+          if (epochControl < n && epoch + 1 !== n) {
+            setEpochControl(epochControl + 1);
+            setEpoch(epoch + 1);
+            let array
+            if (props.result.movimientos[epoch][0].length === 0){
+              array = props.result.movimientos[epoch+1]
+            } else {
+              array = props.result.movimientos[epoch]
+            }
+            setMovimientos(array)
+          }  else {
+            clearInterval(intervalId);
+            props.handleStartSimulation
+            // setEpochControl(0)
+          }
+        }, 500);
+      } else {
+        clearInterval(intervalId);
+        props.handleStartSimulation
+        // setEpochControl(0)
+      }
   
-    //   return () => clearInterval(intervalId);
-    // }, [epoch, props.isRunning, props.result.animales]);
+      return () => clearInterval(intervalId);
+    }, [epoch, props.isRunning, props.result.animales]);
     
     return (
         <div className='content-container'>
@@ -229,11 +251,9 @@ function Content(props) {
               </div>
               <div className='vitals-container'>
                 <div className='vitals-text-container'>
-                  <h2>Frecuencia cardiaca: {props.result.promedios.Frecuencia == undefined ? 0:props.result.promedios.Frecuencia[epoch]} P/min</h2>
-                  <h2>Respiración: {props.result.promedios.Respiracion == undefined ? 0:props.result.promedios.Respiracion[epoch]} R/min</h2>
-                </div>
-                <div className='vitals-text-container'>
-                  <h2>Temperatura Corporal: {props.result.promedios.Temperatura == undefined ? 0:props.result.promedios.Temperatura[epoch]} °C</h2>
+                  <IconVital color='#F26B76' label={props.result.promedios.Frecuencia == undefined ? 0:props.result.promedios.Frecuencia[epoch]} icon={faHeartbeat}/>
+                  <IconVital color='#89C2D9' label={props.result.promedios.Respiracion == undefined ? 0:props.result.promedios.Respiracion[epoch]} icon={faLungs}/>
+                  <IconVital color='#FF911A' label={props.result.promedios.Temperatura == undefined ? 0:props.result.promedios.Temperatura[epoch]} icon={faThermometerThreeQuarters}/>
                 </div>
                 <div className='bars-container'>
                   <ProgressBar label="Hidratación" progress={props.result.promedios.Hidratacion == undefined ? 0 :props.result.promedios.Hidratacion[epoch]*100} />
@@ -245,10 +265,10 @@ function Content(props) {
             <aside>
               <div className='population-container'>
                 <LineChart
-                    xAxis={[{ data: Array.from({ length: props.result.n_poblacion}, (_, index) => index + 1) }]}
+                    xAxis={[{ data: Array.from({ length: props.result.duracion}, (_, index) => index + 1) }]}
                     series={[
                         {
-                        data: Array.from({ length: props.result.n_poblacion}, (_, index) => 0),
+                        data: props.result.poblacion,
                         color: '#59a14f'
                         },
                     ]}
@@ -261,8 +281,11 @@ function Content(props) {
                 
                 series={[
                   {
-                    data: data.map((v) => ({ x: v.x1, y: v.y1, id: v.id })),
+                    data: [].concat(movimientos.map((pair, index) => ({ id: `point_${index}`, x: pair[0], y: pair[1] }))),
                     color: '#59a14f'
+                  },{
+                    data:[{ id:'origin', x: 0, y: 0 }, { id:'end', x: 500, y: 500 }],
+                    color:'white'
                   }
                 ]}
               />
