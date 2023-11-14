@@ -9,15 +9,6 @@ import Map from './Map';
 
 import './Content.css'
 
-if (typeof Highcharts === 'object') {
-    HighCharts3D(Highcharts)
-}
-
-function calcularPromedio(arreglo) {
-  const suma = arreglo.reduce((total, valor) => total + valor, 0);
-  const promedio = suma / arreglo.length;
-  return promedio;
-}
 
 const data = [
   {
@@ -204,30 +195,30 @@ function Content(props) {
     const [epoch, setEpoch] = useState(1)
 
     // setProgress1(calcularPromedioActual(epoch, props.formData.animales, "Hidratacion"))
-    console.log(props.formData.poblacion)
-    let n = props.formData.poblacion
+    console.log("formData",props.result.promedios.Frecuencia == undefined ? 0:props.result.promedios.Frecuencia[0])
+    let n = props.result.duracion
     
     // // Efecto para actualizar la posición cada 2 segundos
-    useEffect(() => {
-      let intervalId;
+    // useEffect(() => {
+    //   let intervalId;
   
-      if (props.formData.isRunning) {
-        intervalId = setInterval(() => {
-          if (epoch < n-1) {
-            console.log('Ejecucion',epoch,n)
-            setEpoch((epoch + 1));
-          } else {
-            clearInterval(intervalId);
-            props.setIsRunning(false);
-            props.formData.isRunning = false
-          }
-        }, 500);
-      } else {
-        clearInterval(intervalId);
-      }
+    //   if (props.result.isRunning) {
+    //     intervalId = setInterval(() => {
+    //       if (epoch < n-1) {
+    //         console.log('Ejecucion',epoch,n)
+    //         setEpoch((epoch + 1));
+    //       } else {
+    //         clearInterval(intervalId);
+    //         props.setIsRunning(false);
+    //         props.result.isRunning = false
+    //       }
+    //     }, 500);
+    //   } else {
+    //     clearInterval(intervalId);
+    //   }
   
-      return () => clearInterval(intervalId);
-    }, [epoch, props.isRunning, props.formData.animales]);
+    //   return () => clearInterval(intervalId);
+    // }, [epoch, props.isRunning, props.result.animales]);
     
     return (
         <div className='content-container'>
@@ -238,26 +229,26 @@ function Content(props) {
               </div>
               <div className='vitals-container'>
                 <div className='vitals-text-container'>
-                  <h2>Frecuencia cardiaca: {props.formData.promedios == undefined ? 0:props.formData.promedios.Frecuencia[epoch]} P/min</h2>
-                  <h2>Respiración: {props.formData.promedios == undefined ? 0:props.formData.promedios.Respiracion[epoch]} R/min</h2>
+                  <h2>Frecuencia cardiaca: {props.result.promedios.Frecuencia == undefined ? 0:props.result.promedios.Frecuencia[epoch]} P/min</h2>
+                  <h2>Respiración: {props.result.promedios.Respiracion == undefined ? 0:props.result.promedios.Respiracion[epoch]} R/min</h2>
                 </div>
                 <div className='vitals-text-container'>
-                  <h2>Temperatura Corporal: {props.formData.promedios == undefined ? 0:props.formData.promedios.Temperatura[epoch]} °C</h2>
+                  <h2>Temperatura Corporal: {props.result.promedios.Temperatura == undefined ? 0:props.result.promedios.Temperatura[epoch]} °C</h2>
                 </div>
                 <div className='bars-container'>
-                  <ProgressBar label="Hidratación" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Hidratacion[epoch]*100} />
-                  <ProgressBar label="Energía" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Energia[epoch]*100} />
-                  <ProgressBar label="Saturación de oxígeno" progress={props.formData.promedios == undefined ? 0 :props.formData.promedios.Saturacion[epoch]*100} />
+                  <ProgressBar label="Hidratación" progress={props.result.promedios.Hidratacion == undefined ? 0 :props.result.promedios.Hidratacion[epoch]*100} />
+                  <ProgressBar label="Energía" progress={props.result.promedios.Energia == undefined ? 0 :props.result.promedios.Energia[epoch]*100} />
+                  <ProgressBar label="Saturación de oxígeno" progress={props.result.promedios.Saturacion == undefined ? 0 :props.result.promedios.Saturacion[epoch]*100} />
                 </div>
               </div>
             </div>
             <aside>
               <div className='population-container'>
                 <LineChart
-                    xAxis={[{ data: Array.from({ length: props.formData.poblacion}, (_, index) => index + 1) }]}
+                    xAxis={[{ data: Array.from({ length: props.result.n_poblacion}, (_, index) => index + 1) }]}
                     series={[
                         {
-                        data: [10,8,5,4,2],
+                        data: Array.from({ length: props.result.n_poblacion}, (_, index) => 0),
                         color: '#59a14f'
                         },
                     ]}

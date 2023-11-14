@@ -16,7 +16,7 @@ function App() {
     tamano: 120,
     entorno: 1,
     duracion: 10,
-    poblacion:10,
+    n_poblacion:10,
     animales: null,
     isRunning:false,
   });
@@ -32,10 +32,19 @@ function App() {
     tamanoMax:120,
     entorno: 1,
     duracion: 10,
-    poblacion:10,
+    n_poblacion:10,
     animales: null,
     isRunning:false,
   });
+  const [result, setResult] = useState({
+    poblacion: [],
+    animales: [],
+    promedios: [],
+    duracion: 6, //dias
+    n_poblacion: 10, //ejemplares
+    is_running: false
+  })
+
   const [isRunning, setIsRunning] = useState(false);
 
   function toggleMenu() {
@@ -49,7 +58,6 @@ function App() {
       url.searchParams.append(key, value);
     });
 
-    console.log(url)
 
     try {
       const response = await fetch(url, {
@@ -68,6 +76,14 @@ function App() {
           animales: result["animales"],
           promedios: result["promedios"]
         });
+
+
+        setResult({
+          ...result,
+          poblacion: result["poblacion"],
+          animales: result["animales"],
+          promedios: result["promedios"],
+        })
         console.log('Updated')
       } else {
         console.error('Error al obtener los datos del servidor');
@@ -84,7 +100,7 @@ function App() {
   return (
     <div className='app-container'>
       <Header toggleMenu={toggleMenu} onStartSimulation={handleStartSimulation}/>
-      <Content formData={newData} isRunning={isRunning} setIsRunning={setIsRunning}/>
+      <Content result={result} isRunning={isRunning} setIsRunning={setIsRunning}/>
       <div className={`menu ${isMenuOpen ? 'open' : ''}`}>
         <Formulario toggleMenu = {toggleMenu} onSubmit={handleFormSubmit}/>
       </div>
